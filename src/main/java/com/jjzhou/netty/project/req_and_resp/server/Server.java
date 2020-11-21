@@ -37,13 +37,16 @@ public class Server {
                     @Override
                     protected void initChannel(SocketChannel channel) throws Exception {
                         ChannelPipeline pipeline = channel.pipeline();
+
                         pipeline.addLast(new OrderFrameDecode());
                         pipeline.addLast(new OrderFrameEncoder());
                         pipeline.addLast(new OrderProtocolEncoder());
                         pipeline.addLast(new OrderProtocolDecode());
-                        pipeline.addLast(new LoggingHandler(LogLevel.INFO));
 
                         pipeline.addLast(new OrderServerProcessHandler());
+
+                        pipeline.addLast(new LoggingHandler(LogLevel.INFO));
+
                     }
                 });
 
