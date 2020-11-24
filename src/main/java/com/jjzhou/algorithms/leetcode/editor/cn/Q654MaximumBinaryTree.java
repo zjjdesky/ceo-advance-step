@@ -64,47 +64,47 @@ class TreeNode {
     }
 }
 class Solution {
-public TreeNode constructMaximumBinaryTree(int[] nums) {
-    if (null == nums || 0 == nums.length) {
-        return null;
-    }
-    int maxValueIndex = getMaxValueIndex(nums, 0, nums.length);
-    return getRootNode(nums, 0, maxValueIndex, maxValueIndex, maxValueIndex + 1, nums.length);
-}
-
-/**
- * 数组是左闭右开 [start, end)
- * @param nums
- * @param leftStart
- * @param leftEnd
- * @param rootIndex
- * @param rightStart
- * @param rightEnd
- * @return
- */
-private TreeNode getRootNode(int[] nums, int leftStart, int leftEnd, int rootIndex, int rightStart, int rightEnd) {
-    TreeNode root = new TreeNode(nums[rootIndex]);
-    if (leftStart < leftEnd) {
-        int leftMaxValueIndex = getMaxValueIndex(nums, leftStart, leftEnd);
-        root.left = getRootNode(nums, leftStart, leftMaxValueIndex, leftMaxValueIndex, leftMaxValueIndex + 1, leftEnd);
-    }
-    if (rightStart < rightEnd) {
-        int rightMaxValueIndex = getMaxValueIndex(nums, rightStart, rightEnd);
-        root.right = getRootNode(nums, rightStart, rightMaxValueIndex, rightMaxValueIndex, rightMaxValueIndex + 1, rightEnd);
-    }
-    return root;
-}
-
-private int getMaxValueIndex(int[] nums, int start, int end) {
-    assert start < end;
-    int maxValueIndex = start;
-    for (int i = start + 1; i < end; i ++) {
-        if (nums[i] > nums[maxValueIndex]) {
-            maxValueIndex = i;
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        if (null == nums || 0 == nums.length) {
+            return null;
         }
+        int maxValueIndex = getMaxValueIndex(nums, 0, nums.length);
+        return getRootNode(nums, 0, maxValueIndex, maxValueIndex, maxValueIndex + 1, nums.length);
     }
-    return maxValueIndex;
-}
+
+    /**
+     * 数组是左闭右开 [start, end)
+     * @param nums
+     * @param leftStart
+     * @param leftEnd
+     * @param rootIndex
+     * @param rightStart
+     * @param rightEnd
+     * @return
+     */
+    private TreeNode getRootNode(int[] nums, int leftStart, int leftEnd, int rootIndex, int rightStart, int rightEnd) {
+        TreeNode root = new TreeNode(nums[rootIndex]);
+        if (leftStart < leftEnd) {
+            int leftMaxValueIndex = getMaxValueIndex(nums, leftStart, leftEnd);
+            root.left = getRootNode(nums, leftStart, leftMaxValueIndex, leftMaxValueIndex, leftMaxValueIndex + 1, leftEnd);
+        }
+        if (rightStart < rightEnd) {
+            int rightMaxValueIndex = getMaxValueIndex(nums, rightStart, rightEnd);
+            root.right = getRootNode(nums, rightStart, rightMaxValueIndex, rightMaxValueIndex, rightMaxValueIndex + 1, rightEnd);
+        }
+        return root;
+    }
+
+    private int getMaxValueIndex(int[] nums, int start, int end) {
+        assert start < end;
+        int maxValueIndex = start;
+        for (int i = start + 1; i < end; i ++) {
+            if (nums[i] > nums[maxValueIndex]) {
+                maxValueIndex = i;
+            }
+        }
+        return maxValueIndex;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
