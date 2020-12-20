@@ -35,8 +35,34 @@ public class Q84LargestRectangleInHistogram {
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+
     public int largestRectangleArea(int[] heights) {
-return 0;
+        if (null == heights || 0 == heights.length) {
+            return 0;
+        }
+        int maxArea = 0;
+        for (int i = 0, len = heights.length; i < len; i ++) {
+            for (int j = i; j < len; j ++) {
+                int tmp = minHeight(heights, i, j) * (j - i + 1);
+                if (maxArea < tmp) {
+                    maxArea = tmp;
+                }
+            }
+        }
+        return maxArea;
+    }
+
+    private int minHeight(int[] heights, int start, int end) {
+        if (start == end) {
+            return heights[start];
+        }
+        int min = heights[start];
+        for (int i = start + 1; i <= end; i ++) {
+            if (heights[i] < min) {
+                min = heights[i];
+            }
+        }
+        return min;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
